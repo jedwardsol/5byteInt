@@ -9,18 +9,18 @@
 static_assert(std::endian::native == std::endian::little);
 
 template <bool isSigned>
-class core5_t
+class core40_t
 {
 public:
 
     using native_t = std::conditional_t<isSigned,int64_t, uint64_t>;
 
-    constexpr core5_t() noexcept
+    constexpr core40_t() noexcept
     {
         store(0);
     }
 
-    explicit constexpr core5_t(native_t native) noexcept
+    explicit constexpr core40_t(native_t native) noexcept
     {
         store(native);
     }
@@ -31,17 +31,17 @@ public:
     }
 
 
-   constexpr std::strong_ordering operator<=>(core5_t const other) const noexcept
+   constexpr std::strong_ordering operator<=>(core40_t const other) const noexcept
     {
         return load() <=> other.load();
     }
 
-    constexpr bool operator==(core5_t const other) const noexcept
+    constexpr bool operator==(core40_t const other) const noexcept
     {
         return load() == other.load();
     }
 
-    constexpr bool operator!=(core5_t const other) const noexcept
+    constexpr bool operator!=(core40_t const other) const noexcept
     {
         return !(*this == other);
     }
@@ -53,7 +53,7 @@ public:
 
 //
 
-    constexpr core5_t &operator++() noexcept
+    constexpr core40_t &operator++() noexcept
     {
         auto value{load()};
 
@@ -64,7 +64,7 @@ public:
         return *this;
     }
 
-    constexpr core5_t operator++(int) noexcept
+    constexpr core40_t operator++(int) noexcept
     {
         auto const  original{*this};
         auto        value{load()};
@@ -76,7 +76,7 @@ public:
         return original;
     }
 
-    constexpr core5_t &operator--() noexcept
+    constexpr core40_t &operator--() noexcept
     {
         auto value{load()};
 
@@ -87,7 +87,7 @@ public:
         return *this;
     }
 
-    constexpr core5_t operator--(int) noexcept
+    constexpr core40_t operator--(int) noexcept
     {
         auto original{*this};
         auto value{load()};
@@ -100,28 +100,28 @@ public:
     }
 
 
-    #define CORE_5T_COMPOUND(OP)                                \
-        constexpr core5_t &operator OP (core5_t rhs) noexcept   \
-        {                                                       \
-            auto value{load()};                                 \
-            value OP rhs.load();                                \
-            store(value);                                       \
-            return *this;                                       \
-        }                                                       
+    #define CORE40_T_COMPOUND(OP)                                     \
+        constexpr core40_t &operator OP (core40_t const rhs) noexcept \
+        {                                                             \
+            auto value{load()};                                       \
+            value OP rhs.load();                                      \
+            store(value);                                             \
+            return *this;                                             \
+        }
 
-    CORE_5T_COMPOUND(+=)
-    CORE_5T_COMPOUND(-=)
-    CORE_5T_COMPOUND(*=)
-    CORE_5T_COMPOUND(/=)
-    CORE_5T_COMPOUND(%=)
+    CORE40_T_COMPOUND(+=)
+    CORE40_T_COMPOUND(-=)
+    CORE40_T_COMPOUND(*=)
+    CORE40_T_COMPOUND(/=)
+    CORE40_T_COMPOUND(%=)
 
-    CORE_5T_COMPOUND(&=)
-    CORE_5T_COMPOUND(|=)
-    CORE_5T_COMPOUND(^=)
-    CORE_5T_COMPOUND(<<=)
-    CORE_5T_COMPOUND(>>=)
+    CORE40_T_COMPOUND(&=)
+    CORE40_T_COMPOUND(|=)
+    CORE40_T_COMPOUND(^=)
+    CORE40_T_COMPOUND(<<=)
+    CORE40_T_COMPOUND(>>=)
 
-    #undef CORE_5T_COMPOUND
+    #undef CORE40_T_COMPOUND
 
 
 private:
@@ -166,35 +166,32 @@ private:
 };
 
 
-#define CORE_5T_BINARYOP(OP)                                                                                \
-    template <bool isSigned>                                                                                \
-    constexpr inline core5_t<isSigned> operator OP (core5_t<isSigned> lhs,core5_t<isSigned> const rhs) noexcept    \
-    {                                                                                                       \
-        lhs OP##= rhs;                                                                                      \
-        return lhs;                                                                                         \
-    }                                                       
+#define CORE40_T_BINARYOP(OP)                                                               \
+    template <bool isSigned>                                                                \
+    constexpr inline core40_t<isSigned> operator OP (core40_t<isSigned>       lhs,          \
+                                                     core40_t<isSigned> const rhs) noexcept \
+    {                                                                                       \
+        lhs OP##= rhs;                                                                      \
+        return lhs;                                                                         \
+    }
 
-CORE_5T_BINARYOP(+)
-CORE_5T_BINARYOP(-)
-CORE_5T_BINARYOP(*)
-CORE_5T_BINARYOP(/)
-CORE_5T_BINARYOP(%)
+CORE40_T_BINARYOP(+)
+CORE40_T_BINARYOP(-)
+CORE40_T_BINARYOP(*)
+CORE40_T_BINARYOP(/)
+CORE40_T_BINARYOP(%)
 
-CORE_5T_BINARYOP(&)
-CORE_5T_BINARYOP(|)
-CORE_5T_BINARYOP(^)
-CORE_5T_BINARYOP(<<)
-CORE_5T_BINARYOP(>>)
+CORE40_T_BINARYOP(&)
+CORE40_T_BINARYOP(|)
+CORE40_T_BINARYOP(^)
+CORE40_T_BINARYOP(<<)
+CORE40_T_BINARYOP(>>)
 
-#undef CORE_5T_BINARYOP
-
-
-
+#undef CORE40_T_BINARYOP
 
 
-using  int40_t = core5_t<true>;
-using uint40_t = core5_t<false>;
-
+using  int40_t = core40_t<true>;
+using uint40_t = core40_t<false>;
 
 
 
