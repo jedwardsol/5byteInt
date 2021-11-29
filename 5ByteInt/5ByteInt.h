@@ -195,8 +195,6 @@ CORE_5T_BINARYOP(>>)
 using  int40_t = core5_t<true>;
 using uint40_t = core5_t<false>;
 
-static_assert(sizeof(int40_t)==5);
-static_assert(sizeof(uint40_t)==5);
 
 
 
@@ -221,3 +219,4 @@ constexpr inline int40_t operator""_i40(unsigned long long val)
 }
 
 
+#include "compileTimeTest.h"

@@ -29,5 +29,8 @@
     <ClInclude Include="..\5ByteInt\io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\5ByteInt\compileTimeTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

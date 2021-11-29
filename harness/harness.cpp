@@ -145,6 +145,10 @@ void incdec()
 
         std::cout << std::format("{} {}\n",i,post);
     }
+
+    
+
+
 }
 
 

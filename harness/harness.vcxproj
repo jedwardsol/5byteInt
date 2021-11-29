@@ -364,6 +364,7 @@
     <ClCompile Include="harness.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\5ByteInt\compileTimeTest.h" />
     <ClInclude Include="..\5ByteInt\io.h" />
     <ClInclude Include="..\5ByteInt\limits.h" />
     <ClInclude Include="..\5ByteInt\5ByteInt.h" />
