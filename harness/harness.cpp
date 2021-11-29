@@ -211,9 +211,33 @@ void binop()
 
         std::cout << std::format("{}+{}={} \n",l,r,sum);
     }
-
 }
 
+
+template <typename T>
+void compare()
+{
+    constexpr auto zero    {T{0}};    
+    constexpr auto nonzero {T{99}};    
+
+    constexpr auto little  {T{1}};    
+    constexpr auto medium  {T{2}};    
+    constexpr auto big     {T{3}};    
+
+    static_assert(  !zero );
+    static_assert(   nonzero );
+    static_assert( !!nonzero );
+
+
+    static_assert( little == little );
+    static_assert( little != medium );
+    static_assert( little < medium);
+    static_assert( little <= medium);
+
+    static_assert( big > medium);
+    static_assert( big >= medium);
+
+}
 
 
 int main()
@@ -242,6 +266,8 @@ try
     binop<int40_t>();
     binop<uint40_t>();
 
+    compare<int40_t>();
+    compare<uint40_t>();
 
 
     return 0;

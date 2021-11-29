@@ -4,6 +4,7 @@
 #include <bit>
 #include <concepts>
 #include <array>
+#include <compare>
 
 static_assert(std::endian::native == std::endian::little);
 
@@ -30,6 +31,25 @@ public:
     }
 
 
+   constexpr std::strong_ordering operator<=>(core5_t const other) const noexcept
+    {
+        return load() <=> other.load();
+    }
+
+    constexpr bool operator==(core5_t const other) const noexcept
+    {
+        return load() == other.load();
+    }
+
+    constexpr bool operator!=(core5_t const other) const noexcept
+    {
+        return !(*this == other);
+    }
+
+    constexpr operator bool() const noexcept
+    {
+        return load() != 0;
+    }
 
 //
 
@@ -148,7 +168,7 @@ private:
 
 #define CORE_5T_BINARYOP(OP)                                                                                \
     template <bool isSigned>                                                                                \
-    constexpr core5_t<isSigned> operator OP (core5_t<isSigned> lhs,core5_t<isSigned> const rhs) noexcept    \
+    constexpr inline core5_t<isSigned> operator OP (core5_t<isSigned> lhs,core5_t<isSigned> const rhs) noexcept    \
     {                                                                                                       \
         lhs OP##= rhs;                                                                                      \
         return lhs;                                                                                         \
@@ -170,6 +190,8 @@ CORE_5T_BINARYOP(>>)
 
 
 
+
+
 using  int40_t = core5_t<true>;
 using uint40_t = core5_t<false>;
 
@@ -178,7 +200,7 @@ static_assert(sizeof(uint40_t)==5);
 
 
 
-constexpr int40_t operator-(int40_t i) noexcept
+constexpr inline int40_t operator-(int40_t i) noexcept
 {
     auto value = int40_t::native_t{i};
 
@@ -188,12 +210,12 @@ constexpr int40_t operator-(int40_t i) noexcept
 }
 
 
-constexpr uint40_t operator""_u40(unsigned long long val)
+constexpr inline uint40_t operator""_u40(unsigned long long val)
 {
     return uint40_t{val};
 }
 
-constexpr int40_t operator""_i40(unsigned long long val)
+constexpr inline int40_t operator""_i40(unsigned long long val)
 {
     return int40_t{static_cast<int64_t>(val)};
 }
