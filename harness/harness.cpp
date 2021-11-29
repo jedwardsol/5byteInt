@@ -17,50 +17,23 @@ void construct()
 
     copy = i;
     copy = std::move(i);
+
+
+    constexpr auto  u_literal       =  42_u40;
+    constexpr auto  i_literal       =  42_i40;
+    constexpr auto  neg_i_literal   = -42_i40;
+
 }
 
 
-void print_old()
-{
-    int40_t     pi{ 42};
-    int40_t     ni{-42};
-
-    uint40_t    pu{ 42};
-    uint40_t    nu(-42);
-
-    std::cout << std::setw(10) << static_cast<int40_t::native_t>(pi)  << ' ' 
-              << std::setw(10) << static_cast<int40_t::native_t>(ni)  << ' ' 
-              << std::setw(10) << static_cast<uint40_t::native_t>(pu) << ' ' 
-              << std::setw(10) << static_cast<uint40_t::native_t>(nu) << '\n';
-
-    std::cout << std::hex;
-    std::cout << std::setw(10) << static_cast<int40_t::native_t>(pi)  << ' ' 
-              << std::setw(10) << static_cast<int40_t::native_t>(ni)  << ' ' 
-              << std::setw(10) << static_cast<uint40_t::native_t>(pu) << ' ' 
-              << std::setw(10) << static_cast<uint40_t::native_t>(nu) << '\n';
-    std::cout << std::dec;
-
-
-    std::cout << std::format("{:10} {:10} {:10} {:10}\n",
-                             static_cast<int40_t::native_t>(pi),
-                             static_cast<int40_t::native_t>(ni),
-                             static_cast<uint40_t::native_t>(pu),
-                             static_cast<uint40_t::native_t>(nu));
-
-    std::cout << std::format("{:10x} {:10x} {:10x} {:10x}\n",
-                             static_cast<int40_t::native_t>(pi),
-                             static_cast<int40_t::native_t>(ni),
-                             static_cast<uint40_t::native_t>(pu),
-                             static_cast<uint40_t::native_t>(nu));
-}
 
 
 void print()
 {
-    int40_t     pi{ 42};
-    int40_t     ni{-42};
+    auto        pi{  42_i40 };
+    auto        ni{ -42_i40 };
 
-    uint40_t    pu{ 42};
+    auto        pu{  42_u40 };
     uint40_t    nu(-42);
 
     std::cout << std::setw(10) << pi  << ' ' 
@@ -248,7 +221,6 @@ try
 {
     construct();
 
-    print_old();
     print();
 
     limits<int64_t>();

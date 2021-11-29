@@ -19,17 +19,16 @@ public:
         store(0);
     }
 
-
     explicit constexpr core5_t(native_t native) noexcept
     {
         store(native);
     }
 
-
-    explicit operator native_t() const noexcept
+    explicit constexpr operator native_t() const noexcept
     {
         return load();
     }
+
 
 
 //
@@ -56,7 +55,6 @@ public:
 
         return original;
     }
-
 
     constexpr core5_t &operator--() noexcept
     {
@@ -144,17 +142,15 @@ private:
         }
     }
 
-//    std::byte    bytes[5];    
-    std::array<std::byte,5> bytes;
-
+    std::array<std::byte,5> bytes{};
 };
 
 
-#define CORE_5T_BINARYOP(OP)                                                                      \
+#define CORE_5T_BINARYOP(OP)                                                                                \
     template <bool isSigned>                                                                                \
     constexpr core5_t<isSigned> operator OP (core5_t<isSigned> lhs,core5_t<isSigned> const rhs) noexcept    \
     {                                                                                                       \
-        lhs OP##= rhs;                                                                                   \
+        lhs OP##= rhs;                                                                                      \
         return lhs;                                                                                         \
     }                                                       
 
@@ -174,15 +170,32 @@ CORE_5T_BINARYOP(>>)
 
 
 
-
-
-
-
-
-
 using  int40_t = core5_t<true>;
 using uint40_t = core5_t<false>;
 
 static_assert(sizeof(int40_t)==5);
 static_assert(sizeof(uint40_t)==5);
+
+
+
+constexpr int40_t operator-(int40_t i) noexcept
+{
+    auto value = int40_t::native_t{i};
+
+    value=-value;
+
+    return int40_t{value};
+}
+
+
+constexpr uint40_t operator""_u40(unsigned long long val)
+{
+    return uint40_t{val};
+}
+
+constexpr int40_t operator""_i40(unsigned long long val)
+{
+    return int40_t{static_cast<int64_t>(val)};
+}
+
 
