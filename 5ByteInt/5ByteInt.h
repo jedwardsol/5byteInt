@@ -46,7 +46,7 @@ public:
         return !(*this == other);
     }
 
-    constexpr operator bool() const noexcept
+    constexpr explicit operator bool() const noexcept
     {
         return load() != 0;
     }
@@ -181,13 +181,23 @@ CORE40_T_BINARYOP(*)
 CORE40_T_BINARYOP(/)
 CORE40_T_BINARYOP(%)
 
-CORE40_T_BINARYOP(&)
+//CORE40_T_BINARYOP(&)
 CORE40_T_BINARYOP(|)
 CORE40_T_BINARYOP(^)
 CORE40_T_BINARYOP(<<)
 CORE40_T_BINARYOP(>>)
 
 #undef CORE40_T_BINARYOP
+
+
+
+    template <bool isSigned>                                                                \
+    constexpr inline core40_t<isSigned> operator & (core40_t<isSigned>       lhs,          \
+                                                     core40_t<isSigned> const rhs) noexcept \
+    {                                                                                       \
+        lhs &= rhs;                                                                      \
+        return lhs;                                                                         \
+    }
 
 
 using  int40_t = core40_t<true>;
