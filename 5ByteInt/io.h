@@ -6,13 +6,13 @@
 #include "5ByteInt.h"
 
 
-std::ostream &operator<<(std::ostream &out,const int40_t  &i)
+inline std::ostream &operator<<(std::ostream &out,const int40_t  &i)
 {
     // TODO : limit -ve values
     return out <<  static_cast<int40_t::native_t>(i);
 }
 
-std::ostream &operator<<(std::ostream &out,const uint40_t  &u)
+inline std::ostream &operator<<(std::ostream &out,const uint40_t  &u)
 {
     return out <<  static_cast<uint40_t::native_t>(u);
 }

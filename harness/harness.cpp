@@ -3,9 +3,22 @@
 #include <format>
 #include <typeinfo>
 
+
+
+#include <array>
+#include <vector>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <unordered_set>
+
+
+
+
 #include "5ByteInt/5ByteInt.h"
 #include "5ByteInt/limits.h"
 #include "5ByteInt/io.h"
+#include "5ByteInt/hash.h"
 
 
 void construct()
@@ -244,6 +257,26 @@ void compare()
 }
 
 
+
+template <typename T>
+void containers()
+{
+    std::array<T,5>         array;
+    std::vector<T>          vector;
+    std::set<T>             set;
+    std::unordered_set<T>   unordered_set;
+    std::map<T,T>           map;
+    std::unordered_map<T,T> unordered_map;
+
+
+    vector.push_back( T{1}) ;
+    set.insert( T{1});
+    unordered_set.insert(T{1});
+    map[T{1}]=T{2};
+    unordered_map[T{1}]=T{2};
+}
+
+
 int main()
 try
 {
@@ -273,19 +306,8 @@ try
     compare<uint40_t>();
 
 
-
-
-    auto max = std::numeric_limits<int40_t>::max() ;
-    auto one = 1_i40; 
-    auto min = std::numeric_limits<int40_t>::min();
-
-    auto b = !one;
-    auto n = ~one;
-
-
-
-//static_assert( std::numeric_limits<int40_t>::min() - 1_i40  ==  std::numeric_limits<int40_t>::max() );
-
+    containers<int40_t>();
+    containers<uint40_t>();
 
 
 
