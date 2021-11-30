@@ -273,11 +273,18 @@ try
     compare<uint40_t>();
 
 
-    constexpr auto umax = std::numeric_limits<uint40_t>::max()  ;
-    constexpr auto one  = 1_u40  ;
 
-    constexpr auto sum1 = umax + one ;
-//  constexpr auto sum2 = umax + 1 ;
+
+    auto max = std::numeric_limits<int40_t>::max() ;
+    auto one = 1_i40; 
+    auto min = std::numeric_limits<int40_t>::min();
+
+    auto b = !one;
+    auto n = ~one;
+
+
+
+//static_assert( std::numeric_limits<int40_t>::min() - 1_i40  ==  std::numeric_limits<int40_t>::max() );
 
 
 

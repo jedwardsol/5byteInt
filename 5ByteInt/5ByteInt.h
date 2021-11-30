@@ -53,6 +53,22 @@ public:
 
 //
 
+    constexpr core40_t operator+() noexcept
+    {
+        return *this;
+    }
+
+    constexpr core40_t operator~() noexcept
+    {
+        auto value{load()};
+
+        value=~value;
+
+        return core40_t<isSigned>{value};
+    }
+
+//
+
     constexpr core40_t &operator++() noexcept
     {
         auto value{load()};

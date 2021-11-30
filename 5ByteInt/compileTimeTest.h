@@ -48,5 +48,6 @@ static_assert((15_u40 ^ 15_u40) ==  0_u40);
 static_assert( std::numeric_limits<uint40_t>::max() + 1_u40 ==  0_u40);
 static_assert( 0_u40 - 1_u40                                ==  std::numeric_limits<uint40_t>::max() );
 
+static_assert( std::numeric_limits<uint40_t>::max()         ==  ~0_u40);
 
 
